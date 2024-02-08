@@ -102,7 +102,7 @@ body {
 }
 
 .box ul li {
-    padding: 4px 8px;
+    padding: 1px 8px;
 }
 
 .box.characters ul li:nth-child(odd) {

@@ -77,6 +77,21 @@ body {
     font-size: 16px;
 }
 
+.box ul {
+    list-style-type: none;
+}
+
+.box ul li {
+    padding: 1px 8px;
+}
+
+.box ul li.target:after {
+    margin-left: 8px;
+    content: "\27A4";
+    font-size: 14px;
+}
+
+
 .box.characters {
     display: grid;
     grid-template-columns: auto;
@@ -88,6 +103,24 @@ body {
     background-color: #535556;
 }
 
+.box.characters ul li {
+    padding: 3px 8px;
+}
+
+.box.characters ul li:nth-child(odd) {
+    background-color: #eee;
+}
+
+.box.characters ul li.target,
+.box.characters ul li:hover {
+    background-color: #888;
+    color: #fff;
+    padding-left: 16px;
+    cursor: pointer;
+}
+
+
+
 .box.details {
     display: grid;
     grid-template-rows: max-content 1fr 1fr;
@@ -97,31 +130,14 @@ body {
     background-color: #748687;
 }
 
-.box ul {
-    list-style-type: none;
-}
-
-.box ul li {
-    padding: 1px 8px;
-}
-
-.box.characters ul li:nth-child(odd) {
-    background-color: #eee;
-}
-
-.box ul li.target,
-.box ul li:hover {
-    background-color: #555;
-    color: #fff;
-    padding-left: 16px;
-    cursor: pointer;
-}
-
-.box ul li.target:after {
-    margin-left: 8px;
-    content: "\27A4";
+.box.details ul li {
     font-size: 14px;
 }
+
+
+
+
+
 
 .box footer {
     display: flex;

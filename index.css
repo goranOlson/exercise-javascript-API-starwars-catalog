@@ -46,7 +46,7 @@ body {
     display: grid;
     grid-template-rows: 1fr 1fr;
     row-gap: 60px;
-    height: 700px;
+    height: 800px;
     width: 90%;
     margin-top: -20px;
     margin-inline: auto;
@@ -126,6 +126,7 @@ body {
     grid-template-rows: max-content 1fr 1fr;
 
 }
+
 .box.details h2 {
     background-color: #748687;
 }
@@ -151,6 +152,7 @@ body {
 .box footer .arrow {
     font-size: 14px;
 }
+
 .box footer .arrow:hover {
     cursor: pointer;
 }
@@ -170,6 +172,7 @@ body {
 .box .inner div {
     font-weight: bold;
 }
+
 .box .inner ul li span {
     padding-left: 8px;
     font-weight: normal;
@@ -180,8 +183,10 @@ body {
 
 
 .loader {
-    border: 3px solid #88a; /* Light grey #f3f3f3 */
-    border-top: 3px solid transparent; /* Blue  #3498db*/
+    border: 3px solid #88a;
+    /* Light grey #f3f3f3 */
+    border-top: 3px solid transparent;
+    /* Blue  #3498db*/
     border-radius: 50%;
     width: 30px;
     height: 30px;
@@ -195,20 +200,25 @@ body {
     margin-inline: auto;
     margin-block: auto;
     display: none;
-  }
+}
 
-  .loader.light {
-    border: 3px solid #eee; /* Light grey #f3f3f3 */
-    border-top: 3px solid transparent; /* Blue  #3498db*/
-  }
+.loader.light {
+    border: 3px solid #eee;
+    /* Light grey #f3f3f3 */
+    border-top: 3px solid transparent;
+    /* Blue  #3498db*/
+}
 
-  .loader.show {
+.loader.show {
     display: block;
-  }
-  
-  @keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-  }
+}
 
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
 
+    100% {
+        transform: rotate(360deg);
+    }
+}

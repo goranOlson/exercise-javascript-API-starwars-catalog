@@ -3,57 +3,73 @@ const URL = "https://swapi.dev/api/people/";
 const personList = document.querySelector('.box.characters ul');
 personList.addEventListener('click', clickCharacter);  //  personSelected
 
+const actor = document.getElementById('actor');
+const planet = document.getElementById('planet');
+
 let pageNbr = 1;
 
 // Init character list Get numbered page from server
 setCharacterList(pageNbr);  
 
 function clickCharacter(event) {
-    const id = parseInt( event.target.id);
-    getCharacter(id);
+    if ( !event.target.classList.contains('target') ) {
+        // Previous target
+        const previousLi = document.querySelector('.box.characters ul li.target');
+        if (previousLi) {
+            previousLi.classList.remove('target');
+        }
+
+        // New target
+        event.target.classList.add('target');
+        const id = parseInt( event.target.id);
+        getCharacter(id);
+    }
 }
 
 const getCharacter = async (id) => {
     // console.log('==> getCharacter(' +  id + ')');
     const loader = document.querySelector('.box.details .loader');
-    loader.classList.add('show');
+    loader.classList.add('show');  // Show loader
 
      // Clear previous info
-    const actor = document.getElementById('actor');
-    actor.lastElementChild.children.remove;
-    const planet = document.getElementById('home-planet');
-    planet.lastElementChild.children.remove;
+    actor.children[0].innerHTML = '';  // h3
+    actor.children[1].innerHTML = '';  // ul
     
     let url = URL + `${id + 1}`;  
     // console.log('url: ' + url);
     
     let dataUser;
     let dataSpecies;
+    let dataPlanet;
      
     let response = await fetch(url);
     let data = await response.json();
     dataUser = data;
+    // console.log('dataUser: ', dataUser);
 
-    // console.log('data: ', data);
-    // console.log('species:', data.species);
     if (data.species.length > 0) {
-         // console.log('Got data.species');
         response = await fetch(data.species[0]);
         dataSpecies = await response.json();
+        // console.log('dataSpecies: ', dataSpecies);
     }
-    // console.log('dataUser:' , dataUser);
-    // console.log('dataSpecies:' , dataSpecies);
+    displayCharacterDetails(dataUser, dataSpecies);  // Show data
 
-    addActorDetails(actor, dataUser, dataSpecies);  // Show data
-    loader.classList.remove('show');
+    if (data.homeworld) {
+        response = await fetch(data.homeworld);
+        dataPlanet = await response.json();
+         console.log('dataPlanet: ', dataPlanet);
+        displayPlanetDetails(dataPlanet);
+    }
+
+    loader.classList.remove('show');  // Hide loader
 }
 
-function addActorDetails(element, userData, speciesData) {
+function displayCharacterDetails(userData, speciesData) {
     // console.log('==> addActorDetails()');
     // console.log('userData', userData);
     // console.log('speciesData:', speciesData);
     // Set h3
-    element.firstElementChild.innerText = userData['name'];
+    actor.firstElementChild.innerText = userData['name'];
     // Set characters data
     const liList = `
         <li>Height:<span class="height">${userData.height}</span></li>
@@ -65,7 +81,22 @@ function addActorDetails(element, userData, speciesData) {
         <li>Species:<span class="species">${(speciesData ? speciesData.classification : '-')}</span></li>
         <li>Gender:<span class="gender">${userData.gender}</span></li>
     `;
-    element.lastElementChild.innerHTML = liList;
+    actor.lastElementChild.innerHTML = liList;
+}
+
+function displayPlanetDetails(planetData) {
+    if (planetData) {
+        planet.children[0].innerText = planetData['name'];
+        const liList = `
+            <li>Rotation period: <span>${planetData.rotation_period}</span></li>
+            <li>Orbital period: <span>${planetData.orbital_period}</span></li>
+            <li>Diameter: <span>${planetData.diameter}</span></li>
+            <li>Climate: <span>${planetData.climate}</span></li>
+            <li>Gravity: <span>${planetData.gravity}</span></li>
+            <li>Terrain: <span>${planetData.terrain}</span></li>
+        `;
+        planet.children[1].innerHTML = liList;
+    }
 }
 
 function setCharacterList(pageNbr = 1) {

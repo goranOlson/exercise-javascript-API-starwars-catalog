@@ -158,6 +158,13 @@ body {
 .box footer .arrow:hover {
     cursor: pointer;
 }
+.box footer.hidden {
+    display: none;
+}
+.box footer .arrow.disabled {
+    color: #aaa;
+    cursor: default;
+}
 
 
 
